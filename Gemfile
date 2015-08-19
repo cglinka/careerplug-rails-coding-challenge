@@ -11,7 +11,12 @@ gem 'formtastic'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'formtastic-bootstrap'
 
+gem 'devise'
+
 group :development, :test do
   gem 'byebug'
   gem 'spring'
+  gem 'better_errors'
+  gem 'rspec-rails'
+  gem 'binding_of_caller'
 end
