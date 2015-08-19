@@ -2,7 +2,11 @@ class JobsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @jobs = current_user.jobs
+    if params[:search]
+      @jobs = current_user.jobs.where('name LIKE ?', "%#{params[:search]}%")
+    else
+      @jobs = current_user.jobs
+    end
   end
 
   def new
@@ -18,6 +22,10 @@ class JobsController < ApplicationController
         format.html { render :new }
       end
     end
+  end
+
+  def show
+    @job = current_user.jobs.where(id: params[:id]).first
   end
 
   private

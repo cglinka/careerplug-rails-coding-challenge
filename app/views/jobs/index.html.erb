@@ -1,5 +1,21 @@
-<h1>All jobs</h1>
+<h1>My jobs</h1>
+
+
+<% if params[:search] %>
+<div class="clearfix">
+  <ul>
+    <li class="alert alert-info">You searched for:
+      <span class="btn btn-default"><%= params[:search] %></span>
+      <span class="btn-sm btn-default"><%= link_to 'Clear Search', jobs_path %></span></li>
+    <li class="alert alert-info">Number of jobs found: <span class="badge"><%= @jobs.count %></span></li>
+  </ul>
+</div>
+<% end %>
+
+
 <% @jobs.each do |job| %>
   <h4><%= job.name %></h4>
   <p><%= job.description.html_safe %></p>
+  <p><%= job.employment_type %></p>
+  <p><%= job.status %></p>
 <% end %>

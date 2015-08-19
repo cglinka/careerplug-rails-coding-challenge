@@ -1,2 +1,4 @@
-<h1>Jobs#show</h1>
-<p>Find me in app/views/jobs/show.html.erb</p>
+<h1><%= @job.name %></h1>
+<p><%= @job.description.html_safe %></p>
+<p><%= @job.employment_type %></p>
+<p><%= @job.status %></p>
