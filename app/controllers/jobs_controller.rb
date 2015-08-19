@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @jobs = Job.all
+    @jobs = current_user.jobs
   end
 
   def new
@@ -10,7 +10,7 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.new(permitted_params)
+    @job = Job.new(permitted_params.merge(user: current_user))
     respond_to do |format|
       if @job.save
         format.html { redirect_to root_path, notice: 'Your job has been posted.' }
@@ -23,6 +23,6 @@ class JobsController < ApplicationController
   private
 
   def permitted_params
-    params.require(:job).permit(:name, :description, :status, :employment_type)
+    params.require(:job).permit(:name, :description, :status, :employment_type, :user_id)
   end
 end
