@@ -31,6 +31,6 @@ class JobsController < ApplicationController
   private
 
   def permitted_params
-    params.require(:job).permit(:name, :description, :status, :employment_type, :user_id)
+    params.require(:job).permit(:name, :description, :status, :employment_type, :user_id, comments_attributes: [:id, :comment, :_destroy])
   end
 end
