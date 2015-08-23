@@ -2,20 +2,31 @@
 
 
 <% if params[:search] %>
-<div class="clearfix">
-  <ul>
-    <li class="alert alert-info">You searched for:
-      <span class="btn btn-default"><%= params[:search] %></span>
-      <span class="btn-sm btn-default"><%= link_to 'Clear Search', jobs_path %></span></li>
-    <li class="alert alert-info">Number of jobs found: <span class="badge"><%= @jobs.count %></span></li>
-  </ul>
+  <div class="clearfix">
+    <ul>
+      <li class="alert alert-info">You searched for:
+        <span class="btn btn-default"><%= params[:search] %></span>
+        <span class="btn-sm btn-default"><%= link_to 'Clear Search', jobs_path %></span></li>
+      <li class="alert alert-info">Number of jobs found: <span class="badge"><%= @jobs.count %></span></li>
+    </ul>
+  </div>
+<% end %>
+
+<div class="jobs">
+  <% @jobs.each do |job| %>
+    <div class="clearfix jumbotron job-<%= job.id %>">
+      <h3><%= job.name %></h3>
+      <p><%= job.description.html_safe %></p>
+      <p>Employment Type: <%= job.employment_type.humanize %></p>
+      <p>Status: <%= job.status.humanize %></p>
+      <h4>Comments:</h4>
+      <ul class="comments">
+        <%= render :partial => job.comments %>
+      </ul>
+       <%= form_for([job, Comment.new], :remote => true) do %>
+        <%= text_area_tag :comment %><br />
+        <%= submit_tag 'Submit', name: nil, class: 'btn btn-default' %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
-<% end %>
-
-
-<% @jobs.each do |job| %>
-  <h4><%= job.name %></h4>
-  <p><%= job.description.html_safe %></p>
-  <p><%= job.employment_type %></p>
-  <p><%= job.status %></p>
-<% end %>

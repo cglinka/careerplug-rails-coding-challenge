@@ -18,8 +18,10 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.save
         format.html { redirect_to root_path, notice: 'Your job has been posted.' }
+        fomat.json
       else
         format.html { render :new }
+        format.json
       end
     end
   end

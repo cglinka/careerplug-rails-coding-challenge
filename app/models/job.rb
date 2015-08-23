@@ -16,7 +16,7 @@ class Job < ActiveRecord::Base
   enum employment_type: [:full_time, :part_time]
 
   belongs_to :user
-  has_many   :comments
+  has_many   :comments, :dependent => :destroy
   accepts_nested_attributes_for :comments, :allow_destroy => true
 
   validates_presence_of :name, :description, :status, :employment_type, :user_id
